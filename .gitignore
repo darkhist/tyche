@@ -1,0 +1,11 @@
+# dependencies
+node_modules
+
+# build files
+dist
+
+# logs
+yarn-error.log
+
+# macOS files
+.DS_Store
