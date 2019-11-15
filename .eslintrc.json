@@ -22,6 +22,7 @@
   },
   "rules": {
     "comma-dangle": ["error", "only-multiline"],
+    "implicit-arrow-linebreak": "off",
     "import/no-extraneous-dependencies": [
       "error",
       {
