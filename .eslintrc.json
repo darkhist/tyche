@@ -21,6 +21,7 @@
     "sourceType": "module"
   },
   "rules": {
+    "arrow-parens": ["error", "as-needed"],
     "comma-dangle": ["error", "only-multiline"],
     "implicit-arrow-linebreak": "off",
     "import/no-extraneous-dependencies": [
