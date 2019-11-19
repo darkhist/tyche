@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:11.10.1
+      - image: node:11.10.1
 
   working_directory: ~/tyche
 
@@ -10,14 +10,11 @@ jobs:
     - checkout
 
     - restore_cache:
-      name: Restore Yarn Package Cache
-      keys:
-        - v1-dependencies-{{ checksum "package.json" }}
-        - v1-dependencies-
+        keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-
 
-    - run:
-      name: Install Dependencies
-      command: yarn install
+    - run: yarn install
 
     - save_cache:
         paths:
