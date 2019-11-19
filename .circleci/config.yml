@@ -2,35 +2,25 @@ version: 2.1
 
 jobs:
   build:
+  working_directory: ~/tyche
     docker:
-      - image: circleci/node:12.10.0
-
+      - image: circleci/node:11.10.1
   steps:
     - checkout
-
-    - run:
-        name: Current Time
-        command: date
-
+    
     - restore_cache:
-        name: Restore Yarn Package Cache
-        keys:
-          - yarn-packages-{{ checksum "yarn.lock" }}
-
+      name: Restore Yarn Package Cache
+      keys:
+        - v1-dependencies-{{ checksum "package.json" }}
+        - v1-dependencies-
+    
     - run:
-        name: Install Dependencies
-        command: 'yarn install --frozen-lockfile'
-
+      name: Install Dependencies
+      command: yarn install
+    
     - save_cache:
-        name: Save Yarn Package Cache
-        key: dependency-cache-{{ checksum "yarn.lock" }}
         paths:
-          - ~/.cache/yarn
+          - node_modules
+        key: v1-dependencies-{{ checksum "package.json" }}
 
-    - run:
-        name: lint
-        command: 'yarn lint'
-
-    - run:
-        name: test
-        command: 'yarn test'
+    - run: yarn test
