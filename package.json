@@ -35,14 +35,15 @@
     "prop-types": "^15.7.2",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.9.0"
+    "webpack-dev-server": "^3.9.0",
+    "webpack-merge": "^4.2.2"
   },
   "scripts": {
-    "dev": "webpack-dev-server --mode development --open --hot",
+    "start": "webpack-dev-server --mode development --open --config webpack.dev.js",
+    "build": "webpack --mode production --config webpack.prod.js",
     "lint": "npx eslint src/ --ext .jsx",
     "test": "jest --verbose",
-    "watch": "jest --watch",
-    "build": "webpack --mode production"
+    "watch": "jest --watch"
   },
   "jest": {
     "setupFiles": [
