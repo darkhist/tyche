@@ -8,7 +8,7 @@ const generateRandomNumber = () => Math.floor(Math.random() * 250000) + 1;
 
 const generateURL = () => {
   const postNo = generateRandomNumber();
-  return `${process.env.PROXY_URL}https://archillect.com/${postNo}`;
+  return `https://shrouded-fjord-75956.herokuapp.com/archillect.com/${postNo}`;
 };
 
 const Button = styled.button`

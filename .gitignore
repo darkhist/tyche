@@ -7,8 +7,5 @@ dist
 # logs
 yarn-error.log
 
-# env variables
-.env
-
 # macOS files
 .DS_Store
