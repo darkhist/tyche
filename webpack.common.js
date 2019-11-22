@@ -12,7 +12,12 @@ module.exports = () => ({
         test: /\.(js|jsx)$/,
         resolve: { extensions: ['.js', '.jsx'] },
         exclude: /node_modules/,
-        use: ['babel-loader', 'eslint-loader']
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-react']
+          }
+        }
       }
     ]
   },
