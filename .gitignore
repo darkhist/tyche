@@ -4,6 +4,9 @@ node_modules
 # build files
 dist
 
+# keys
+tyche-259704-856fa23bcdb0.json
+
 # logs
 yarn-error.log
 
