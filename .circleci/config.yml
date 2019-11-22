@@ -1,4 +1,5 @@
 version: 2
+
 jobs:
   build:
     docker:
@@ -31,3 +32,21 @@ jobs:
 
       # build
       - run: yarn build
+
+  deploy:
+    docker:
+      - image: google/cloud-sdk
+    steps:
+      - run: |
+          echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
+          gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+          gcloud app deploy app.yaml
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
