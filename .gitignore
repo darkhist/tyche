@@ -5,7 +5,7 @@ node_modules
 dist
 
 # keys
-tyche-259704-856fa23bcdb0.json
+key.json
 
 # logs
 yarn-error.log
