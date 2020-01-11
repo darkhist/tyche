@@ -1,4 +1,4 @@
-runtime: nodejs
+runtime: nodejs12
 
 handlers:
   - url: /
