@@ -1,9 +1,8 @@
-runtime: nodejs10
+runtime: nodejs
 
 handlers:
   - url: /
     static_files: dist/index.html
     upload: dist/index.html
-  - url: /(.*)$
-    static_files: dist/\1
-    upload: dist/(.*)
+  - url: /
+    static_dir: dist

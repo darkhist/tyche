@@ -2,7 +2,8 @@
 node_modules
 
 # build files
-dist
+dist/*
+!dist/app.yaml
 
 # keys
 key.json
