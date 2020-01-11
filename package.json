@@ -39,7 +39,9 @@
     "webpack-merge": "^4.2.2"
   },
   "scripts": {
-    "start": "webpack-dev-server --mode development --open --config webpack.dev.js",
+    "local": "webpack-dev-server --mode development --open --config webpack.dev.js",
+    "prestart": "npm install -g serve",
+    "start": "serve -s dist",
     "build": "webpack --mode production --config webpack.prod.js",
     "lint": "npx eslint src/ --ext .jsx",
     "test": "jest --verbose",
