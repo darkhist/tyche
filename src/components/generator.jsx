@@ -66,10 +66,10 @@ class Generator extends Component {
     const { src } = this.state;
 
     return (
-      <main>
+      <div>
         <Button onClick={() => this.getImage()}>Next</Button>
-        <Image src={src} />
-      </main>
+        <Image src={src} alt="" />
+      </div>
     );
   }
 }

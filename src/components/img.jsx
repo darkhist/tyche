@@ -27,21 +27,20 @@ const StyledImg = styled.img`
   margin: 1.25em auto 1em auto;
 `;
 
-const Image = props => {
-  const { src } = props;
-  return (
-    <StyledDiv>
-      <StyledImg src={src} alt="" />
-    </StyledDiv>
-  );
-};
+const Image = ({ src, alt }) => (
+  <StyledDiv>
+    <StyledImg src={src} alt={alt} />
+  </StyledDiv>
+);
 
 Image.defaultProps = {
-  src: null
+  src: null,
+  alt: null
 };
 
 Image.propTypes = {
-  src: PropTypes.string
+  src: PropTypes.string,
+  alt: PropTypes.string
 };
 
 export default Image;
