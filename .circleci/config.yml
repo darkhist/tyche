@@ -10,10 +10,8 @@ jobs:
     steps:
       - checkout
 
-      - persist_to_workspace:
-          root: /root/tyche
-          paths:
-            - app.yaml
+      - attach_workspace:
+          at: ~/tyche
 
       # Download and cache dependencies
       - restore_cache:
@@ -38,16 +36,28 @@ jobs:
       # build
       - run: yarn build
 
+      # keep app.yaml & dist
+      - persist_to_workspace:
+          root: .
+          paths:
+            - app.yaml
+            - dist/*
+
   deploy:
     working_directory: ~/tyche
     docker:
       - image: google/cloud-sdk
     steps:
+      - checkout
+
+      - attach_workspace:
+          at: ~/tyche
+
       - run:
-        name: Asset Check
-        command: |
-          echo $PWD
-          ls -aslh .
+          name: Asset Check
+          command: |
+            echo $PWD
+            ls -aslh .
 
       - run: |
           echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
