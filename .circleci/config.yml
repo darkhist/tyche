@@ -4,8 +4,15 @@ jobs:
   test:
     working_directory: ~/tyche
 
+    docker:
+      - image: circleci/node:12.10.0
+
     steps:
       - checkout
+
+      - run:
+          name: Install Dependencies
+          command: yarn install
 
       - run:
           name: Test
@@ -53,8 +60,10 @@ jobs:
 
   deploy:
     working_directory: ~/tyche
+
     docker:
       - image: google/cloud-sdk
+
     steps:
       - checkout
 
