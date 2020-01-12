@@ -1,6 +1,16 @@
 version: 2
 
 jobs:
+  test:
+    working_directory: ~/tyche
+
+    steps:
+      - checkout
+
+      - run:
+          name: Test
+          command: yarn test
+
   build:
     working_directory: ~/tyche
 
@@ -20,21 +30,19 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: yarn install
+      - run:
+          name: Install Dependencies
+          command: yarn install
 
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      # lint
-      - run: yarn lint
-
-      # test
-      - run: yarn test
-
       # build
-      - run: yarn build
+      - run:
+          name: Build
+          command: yarn build
 
       # keep app.yaml & dist
       - persist_to_workspace:
@@ -54,22 +62,21 @@ jobs:
           at: ~/tyche
 
       - run:
-          name: Asset Check
+          name: Deploy
           command: |
-            echo $PWD
-            ls -aslh .
-
-      - run: |
-          echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
-          gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-          gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
-          gcloud --quiet app deploy app.yaml --verbosity=info
+            echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
+            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+            gcloud --quiet app deploy app.yaml
 
 workflows:
   version: 2
-  build-and-deploy:
+  test-build-and-deploy:
     jobs:
-      - build
+      - test
+      - build:
+          requires:
+            - test
       - deploy:
           requires:
             - build
