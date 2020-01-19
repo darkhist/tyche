@@ -4,10 +4,8 @@ import styled from 'styled-components';
 
 import Image from './img';
 
-const generateRandomNumber = () => Math.floor(Math.random() * 250000) + 1;
-
 const generateURL = () => {
-  const postNo = generateRandomNumber();
+  const postNo = Math.floor(Math.random() * 250000) + 1;
   return `https://shrouded-fjord-75956.herokuapp.com/archillect.com/${postNo}`;
 };
 
