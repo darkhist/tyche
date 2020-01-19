@@ -6,9 +6,12 @@
   "dependencies": {
     "@babel/runtime": "^7.7.2",
     "axios": "^0.19.0",
+    "cheerio": "^1.0.0-rc.3",
+    "jest-styled-components": "^7.0.0",
     "react": "^16.11.0",
     "react-dom": "^16.12.0",
-    "styled-components": "^4.4.1"
+    "react-is": "^16.8",
+    "styled-components": "^5.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.7.2",
@@ -29,9 +32,7 @@
     "eslint-plugin-import": "^2.20.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.16.0",
-    "eslint-plugin-react-hooks": "^1.7.0",
     "html-webpack-plugin": "^3.2.0",
-    "husky": "^4.0.6",
     "jest": "^24.9.0",
     "prop-types": "^15.7.2",
     "webpack": "^4.41.5",
@@ -47,11 +48,6 @@
     "lint": "npx eslint src/ --ext .jsx",
     "test": "jest --verbose",
     "watch": "jest --watch"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn lint"
-    }
   },
   "jest": {
     "setupFiles": [
