@@ -34,7 +34,7 @@ const Image = ({ src, alt }) => (
 );
 
 Image.defaultProps = {
-  src: null,
+  src: PropTypes.string.isRequired,
   alt: null
 };
 
