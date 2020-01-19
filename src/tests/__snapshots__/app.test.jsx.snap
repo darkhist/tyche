@@ -2,7 +2,7 @@
 
 exports[`App should render without crashing 1`] = `
 <Fragment>
-  <GlobalStyleComponent />
+  <Memo(GlobalStyleComponent) />
   <header>
     <Title />
     <Info />
