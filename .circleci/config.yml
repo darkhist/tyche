@@ -1,97 +1,49 @@
 version: 2
 
 jobs:
-  test:
-    working_directory: ~/tyche
-
-    docker:
-      - image: circleci/node:12.10.0
-
-    steps:
-      - checkout
-
-      - run:
-          name: Install Dependencies
-          command: yarn install
-
-      - run:
-          name: Test
-          command: yarn test
-
   build:
-    working_directory: ~/tyche
-
     docker:
       - image: circleci/node:12.10.0
-
+    working_directory: ~/tyche
     steps:
       - checkout
-
       - attach_workspace:
           at: ~/tyche
-
-      # Download and cache dependencies
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
-
       - run:
           name: Install Dependencies
           command: yarn install
-
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-
-      # build
+      - run:
+          name: Test
+          command: yarn test
       - run:
           name: Build
           command: yarn build
 
-      # keep app.yaml & dist
-      - persist_to_workspace:
-          root: .
-          paths:
-            - app.yaml
-            - dist/*
-
   deploy:
-    working_directory: ~/tyche
-
-    docker:
-      - image: google/cloud-sdk
-
+    machine:
+      macos:
+        xcode: '9.0'
     steps:
-      - checkout
-
-      - attach_workspace:
-          at: ~/tyche
-
       - run:
-          name: Deploy
-          command: |
-            echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
-            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
-            gcloud --quiet app deploy app.yaml
+          name: Deploy to Netlify
+          command: curl -X POST -d {} ${NETLIFY_BUILD_URL}
 
 workflows:
   version: 2
-  test-build-and-deploy:
+  build:
     jobs:
-      - test:
-          filters:
-            branches:
-              only: master
       - build:
           filters:
             branches:
-              only: master
-          requires:
-            - test
+              ignore: master
       - deploy:
           filters:
             branches:
