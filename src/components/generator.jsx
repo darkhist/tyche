@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
@@ -35,42 +35,69 @@ const Button = styled.button`
   }
 `;
 
+const LoadingContainer = styled.div`
+  font-size: 1.25rem;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  margin: 10rem 0;
+`;
+
+const Loading = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+`;
+
 Button.displayName = 'button';
+LoadingContainer.displayName = 'loadingContainer';
+Loading.displayName = 'loading';
 
-class Generator extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      src:
-        'https://66.media.tumblr.com/60a795da531a1cc8dc557bb8a462be84/tumblr_pnqdpjKPiR1qjm946o1_1280.jpg'
-    };
-  }
+const Generator = () => {
+  const [source, setSource] = useState(
+    'https://66.media.tumblr.com/60a795da531a1cc8dc557bb8a462be84/tumblr_pnqdpjKPiR1qjm946o1_1280.jpg'
+  );
+  const [isLoading, setisLoading] = useState(false);
 
-  async getImage() {
+  const getImage = async () => {
+    setisLoading(true);
     const div = document.createElement('div');
     const url = generateURL();
+
     try {
       const res = await axios.get(url);
       div.innerHTML = res.data;
       const { src } = div.getElementsByTagName('img')[1];
-      this.setState({ src });
+      if (src) {
+        setSource(src);
+        setisLoading(false);
+      }
       return src;
     } catch (e) {
+      setisLoading(false);
       return new Error(e);
     }
-  }
+  };
 
-  render() {
-    const { src } = this.state;
-
-    return (
-      <div>
-        <Button onClick={() => this.getImage()}>Next</Button>
-        <Image src={src} alt="" />
-      </div>
-    );
-  }
-}
+  return isLoading ? (
+    <>
+      <LoadingContainer>
+        <Loading> Loading... </Loading>
+      </LoadingContainer>
+    </>
+  ) : (
+    <>
+      <Button
+        onClick={() => {
+          getImage();
+        }}
+      >
+        Next
+      </Button>
+      <Image src={source} alt="" />
+    </>
+  );
+};
 
 export { generateURL };
 export default Generator;

@@ -11,7 +11,7 @@ const StyledTitle = styled.h1`
   }
 
   font-size: 3em;
-  margin: 0.25em auto 0 auto;
+  margin: 1em auto 0 auto;
   text-align: center;
 `;
 
