@@ -33,7 +33,8 @@
     "react/jsx-filename-extension": "off",
     "react/jsx-props-no-spreading": "off",
     "comma-dangle": "off",
-    "import/no-extraneous-dependencies": "off"
+    "import/no-extraneous-dependencies": "off",
+    "no-shadow": "off"
   },
   "globals": {
     "React": "writable"
