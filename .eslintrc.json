@@ -1,34 +1,41 @@
 {
-  "env": {
-    "browser": true,
-    "es6": true,
-    "jest": true
-  },
-  "extends": [
-    "airbnb",
-    "plugin:jsx-a11y/recommended",
-    "plugin:react/recommended"
-  ],
-  "globals": {
-    "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
-  },
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
     },
-    "ecmaVersion": 2018,
     "sourceType": "module"
   },
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended",
+    "airbnb",
+    "prettier",
+    "prettier/react"
+  ],
+  "plugins": ["import", "react"],
   "rules": {
-    "arrow-parens": ["error", "as-needed"],
-    "comma-dangle": ["error", "only-multiline"],
-    "implicit-arrow-linebreak": "off",
-    "import/no-extraneous-dependencies": [
+    "jsx-a11y/anchor-is-valid": [
       "error",
       {
-        "devDependencies": true
+        "components": ["Link"],
+        "specialLink": ["hrefLeft", "hrefRight"],
+        "aspects": ["invalidHref", "preferButton"]
       }
-    ]
+    ],
+    "cypress/no-unnecessary-waiting": "off",
+    "react/forbid-prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "react/jsx-filename-extension": "off",
+    "react/jsx-props-no-spreading": "off",
+    "comma-dangle": "off",
+    "import/no-extraneous-dependencies": "off"
+  },
+  "globals": {
+    "React": "writable"
   }
 }
