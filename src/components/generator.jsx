@@ -50,16 +50,17 @@ const Loading = styled.div`
 `;
 
 Button.displayName = 'button';
+LoadingContainer.displayName = 'loadingContainer';
 Loading.displayName = 'loading';
 
 const Generator = () => {
   const [source, setSource] = useState(
     'https://66.media.tumblr.com/60a795da531a1cc8dc557bb8a462be84/tumblr_pnqdpjKPiR1qjm946o1_1280.jpg'
   );
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setisLoading] = useState(false);
 
   const getImage = async () => {
-    setLoading(true);
+    setisLoading(true);
     const div = document.createElement('div');
     const url = generateURL();
 
@@ -69,16 +70,16 @@ const Generator = () => {
       const { src } = div.getElementsByTagName('img')[1];
       if (src) {
         setSource(src);
-        setLoading(false);
+        setisLoading(false);
       }
       return src;
     } catch (e) {
-      setLoading(false);
+      setisLoading(false);
       return new Error(e);
     }
   };
 
-  return loading ? (
+  return isLoading ? (
     <>
       <LoadingContainer>
         <Loading> Loading... </Loading>
